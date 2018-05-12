@@ -11,13 +11,13 @@ import javax.swing.SwingConstants;
  *
  * @author David
  */
-public class Executable_GUI extends javax.swing.JFrame {
+public class Launcher extends javax.swing.JFrame {
 
     private Simulator simulator;
     /**
      * Creates new form Executable_GUI
      */
-    public Executable_GUI() {
+    public Launcher() {
         initComponents();
         enableSimulationButtons(false);
     }
@@ -43,7 +43,6 @@ public class Executable_GUI extends javax.swing.JFrame {
         btReset = new javax.swing.JButton();
 
         jDialog1.setAlwaysOnTop(true);
-        jDialog1.setMaximumSize(new java.awt.Dimension(418, 129));
         jDialog1.setMinimumSize(new java.awt.Dimension(418, 129));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -89,6 +88,7 @@ public class Executable_GUI extends javax.swing.JFrame {
         jDialog1.setVisible(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Fox and Friends Launcher");
 
         jLabel1.setText("Please select an action:");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -218,20 +218,21 @@ public class Executable_GUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Executable_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Launcher.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Executable_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Launcher.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Executable_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Launcher.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Executable_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Launcher.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Executable_GUI().setVisible(true);
+                new Launcher().setVisible(true);
             }
         });
     }
