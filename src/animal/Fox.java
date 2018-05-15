@@ -85,6 +85,11 @@ public class Fox extends Animal
         }
     }
     
+    protected Animal createAnimal(boolean randomAge, Field field, Location location)
+    {
+        return new Fox(randomAge, field, location);
+    }
+    
     /**
      * Make this fox more hungry. This could result in the fox's death.
      */
@@ -121,25 +126,6 @@ public class Fox extends Animal
             }
         }
         return null;
-    }
-    
-    /**
-     * Check whether or not this fox is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newFoxes A list to add newly born foxes to.
-     */
-    private void giveBirth(List<Animal> newFoxes)
-    {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
-            newFoxes.add(young);
-        }
     }
 
     /**

@@ -138,6 +138,27 @@ public abstract class Animal
     abstract protected int getMaxAge();
     
     /**
+     * Check whether or not this rabbit is to give birth at this step.
+     * New births will be made into free adjacent locations.
+     * @param newRabbits A list to add newly born rabbits to.
+     */
+    protected void giveBirth(List<Animal> newAnimal)
+    {
+        // New rabbits are born into adjacent locations.
+        // Get a list of adjacent free locations.
+        Field field = getField();
+        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        int births = breed();
+        for(int b = 0; b < births && free.size() > 0; b++) {
+            Location loc = free.remove(0);
+            Animal young = createAnimal(false, field, loc);
+            newAnimal.add(young);
+        }
+    }
+    
+    abstract protected Animal createAnimal(boolean randomAge, Field field, Location location);
+        
+    /**
      * An animal can breed if it has reached the breeding age.
      * @return true if the animal can breed, false otherwise.
      */

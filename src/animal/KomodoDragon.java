@@ -24,7 +24,7 @@ public class KomodoDragon extends Animal {
     private static final int MAX_LITTER_SIZE = 20;
     // The food value of a single fox. In effect, this is the
     // number of steps a dragon can go before it has to eat again.
-    private static final int FOX_FOOD_VALUE = 14;
+    private static final int FOX_FOOD_VALUE = 28;
     
     // Individual characteristics (instance fields).
     
@@ -73,6 +73,11 @@ public class KomodoDragon extends Animal {
         }
     }
     
+     protected Animal createAnimal(boolean randomAge, Field field, Location location)
+    {
+        return new KomodoDragon(randomAge, field, location);
+    }
+    
     /**
      * Make this dragon more hungry. This could result in the dragon's death.
      */
@@ -110,26 +115,7 @@ public class KomodoDragon extends Animal {
         }
         return null;
     }
-    
-     /**
-     * Check whether or not this fox is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newDragons A list to add newly born foxes to.
-     */
-    private void giveBirth(List<Animal> newKomodoDragons)
-    {
-        // New dragons are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            KomodoDragon young = new KomodoDragon(false, field, loc);
-            newKomodoDragons.add(young);
-        }
-    }
-    
+ 
     /**
      * Return the breeding age of this dragon.
      * @return The breeding age of this dragon.
