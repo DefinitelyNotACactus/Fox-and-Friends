@@ -26,8 +26,9 @@ public class KomodoDragon extends AbstractPredatorManager
     private static final double BREEDING_PROBABILITY = 0.02;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 20;
-    // The food value of a single fox. In effect, this is the
-    // number of steps a dragon can go before it has to eat again.
+    // The food value of a dragon.
+    private static final int FOOD_VALUE = 56;
+    // The food value of a fox.
     private static final int FOX_FOOD_VALUE = 28;
     
     public KomodoDragon(boolean randomAge, Field field, Location location){
@@ -35,40 +36,6 @@ public class KomodoDragon extends AbstractPredatorManager
         if(randomAge) {
             setAge(Randomizer.getRandom().nextInt(MAX_AGE));
             setFoodLevel(Randomizer.getRandom().nextInt(FOX_FOOD_VALUE));
-        }
-        else {
-            setFoodLevel(FOX_FOOD_VALUE);
-        }
-    }
-    
-    /**
-     * This is what the dragon does most of the time: it hunts for
-     * fox. In the process, it might breed, die of hunger,
-     * or die of old age.
-     * @param newKomodoDragons A list to add newly born dragons to.
-     */
-    @Override
-    public void act(List<Animal> newKomodoDragons)
-    {
-        incrementAge();
-        incrementHunger();
-        if(isAlive()) {
-            giveBirth(newKomodoDragons);            
-            // Move towards a source of food if found.
-            Location location = getLocation();
-            Location newLocation = findFood(location);
-            if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(location);
-            }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
         }
     }
     
@@ -97,49 +64,33 @@ public class KomodoDragon extends AbstractPredatorManager
                 Fox fox = (Fox) animal;
                 if(fox.isAlive()) { 
                     fox.setDead();
-                    setFoodLevel(FOX_FOOD_VALUE);
-                    // Remove the dead rabbit from the field.
+                    setFoodLevel(fox.getFoodValue());
+                    // Remove the dead fox from the field.
                     return where;
                 }
             }
         }
         return null;
     }
- 
-    /**
-     * Return the breeding age of this dragon.
-     * @return The breeding age of this dragon.
-     */
+
     @Override
     public int getBreedingAge()
     {
         return BREEDING_AGE;
     }
-    
-    /**
-     * Return the breeding probability of this dragon.
-     * @return The breeding probability of this dragon.
-     */
+
     @Override
     public double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
     
-    /**
-     * Return the maximum litter size of this dragon.
-     * @return The maximum litter size of this dragon.
-     */
     @Override
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
     }
     
-    /**
-     * Return the maximum age of this dragon
-     * @return The maximum age of this dragon
-     */
     @Override
     public int getMaxAge()
     {
@@ -147,16 +98,23 @@ public class KomodoDragon extends AbstractPredatorManager
     }
     
     @Override
-    public int getFoodValue(){
+    public int getFoodValue()
+    {
+        return FOOD_VALUE;
+    }
+      
+    @Override
+    public int getMainPreyFoodValue()
+    {
         return FOX_FOOD_VALUE;
     }
-    
     /**
      * Return the name of this object
      * @return The name of the object
      */
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "Komodo Dragon";
     }
     

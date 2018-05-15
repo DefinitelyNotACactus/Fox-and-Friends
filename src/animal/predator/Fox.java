@@ -1,12 +1,12 @@
 package animal.predator;
 
-import animal.prey.Rabbit;
 import field.Field;
 import field.Location;
 import field.Randomizer;
-import java.util.List;
-import java.util.Iterator;
 import animal.Animal;
+import animal.prey.Rabbit;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A simple model of a fox.
@@ -27,8 +27,9 @@ public class Fox extends AbstractPredatorManager
     private static final double BREEDING_PROBABILITY = 0.35;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 5;
-    // The food value of a single rabbit. In effect, this is the
-    // number of steps a fox can go before it has to eat again.
+    // The food value of a fox.
+    private static final int FOOD_VALUE = 28;
+    // The food value of a rabbit.
     private static final int RABBIT_FOOD_VALUE = 7;
 
     /**
@@ -45,40 +46,6 @@ public class Fox extends AbstractPredatorManager
         if(randomAge) {
             setAge(Randomizer.getRandom().nextInt(MAX_AGE));
             setFoodLevel(Randomizer.getRandom().nextInt(RABBIT_FOOD_VALUE));
-        }
-        else {
-            setFoodLevel(RABBIT_FOOD_VALUE);
-        }
-    }
-    
-    /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
-     * or die of old age.
-     * @param newFoxes A list to add newly born foxes to.
-     */
-    @Override
-    public void act(List<Animal> newFoxes)
-    {
-        incrementAge();
-        incrementHunger();
-        if(isAlive()) {
-            giveBirth(newFoxes);            
-            // Move towards a source of food if found.
-            Location location = getLocation();
-            Location newLocation = findFood(location);
-            if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(location);
-            }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
         }
     }
     
@@ -107,7 +74,7 @@ public class Fox extends AbstractPredatorManager
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) { 
                     rabbit.setDead();
-                    setFoodLevel(RABBIT_FOOD_VALUE);
+                    setFoodLevel(rabbit.getFoodValue());
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -116,40 +83,24 @@ public class Fox extends AbstractPredatorManager
         return null;
     }
 
-    /**
-     * Return the breeding age of this fox.
-     * @return The breeding age of this fox.
-     */
     @Override
     public int getBreedingAge()
     {
         return BREEDING_AGE;
     }
     
-    /**
-     * Return the breeding probability of this fox.
-     * @return The breeding probability of this fox.
-     */
     @Override
     public double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
     
-    /**
-     * Return the maximum litter size of this fox.
-     * @return The maximum litter size of this fox.
-     */
     @Override
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
     }
     
-    /**
-     * Return the maximum age of this fox
-     * @return The maximum age of this fox
-     */
     @Override
     public int getMaxAge()
     {
@@ -157,7 +108,14 @@ public class Fox extends AbstractPredatorManager
     }
     
     @Override
-    public int getFoodValue(){
+    public int getFoodValue()
+    {
+        return FOOD_VALUE;
+    }
+    
+    @Override
+    public int getMainPreyFoodValue()
+    {
         return RABBIT_FOOD_VALUE;
     }
     
@@ -166,7 +124,8 @@ public class Fox extends AbstractPredatorManager
      * @return The name of the object
      */
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "Fox";
     }
 }

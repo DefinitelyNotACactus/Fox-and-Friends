@@ -40,27 +40,15 @@ public abstract class AbstractAnimalManager implements Animal
         setLocation(location);
     }
     
-    /**
-     * Make this animal act - that is: make it do
-     * whatever it wants/needs to do.
-     * @param newAnimals A list to add newly born animals to.
-     */
+    @Override
     abstract public void act(List<Animal> newAnimals);
 
-    /**
-     * Check whether the animal is alive or not.
-     * @return true if the animal is still alive.
-     */
     @Override
     public boolean isAlive()
     {
         return alive;
     }
 
-    /**
-     * Indicate that the animal is no longer alive.
-     * It is removed from the field.
-     */
     @Override
     public void setDead()
     {
@@ -72,30 +60,18 @@ public abstract class AbstractAnimalManager implements Animal
         }
     }
 
-    /**
-     * Return the animal's location.
-     * @return The animal's location.
-     */
     @Override
     public Location getLocation()
     {
         return location;
     }
     
-    /**
-     * Return the animal's field.
-     * @return The animal's field.
-     */
     @Override
     public Field getField()
     {
         return field;
     }
     
-    /**
-     * Place the animal at the new location in the given field.
-     * @param newLocation The animal's new location.
-     */
     @Override
     public void setLocation(Location newLocation)
     {
@@ -106,30 +82,18 @@ public abstract class AbstractAnimalManager implements Animal
         field.place(this, newLocation);
     }
     
-    /**
-     * Changes the animal age.
-     * @param newAge The animal's new age
-     */
     @Override
     public void setAge(int newAge)
     {
         age = newAge;
     }
     
-    /**
-     * Return the animal's age
-     * @return The animal's age
-     */
     @Override
     public int getAge()
     {
         return age;
     }
     
-    /**
-     * Increase the age.
-     * This could result in the animal's death.
-     */
     @Override
     public void incrementAge()
     {
@@ -139,16 +103,13 @@ public abstract class AbstractAnimalManager implements Animal
         }
     }
     
-    /**
-     * Return the maximum age of this animal
-     * @return The maximum age of this animal
-     */
+    @Override
     abstract public int getMaxAge();
     
     @Override
     public void giveBirth(List<Animal> newAnimals)
     {
-        // New rabbits are born into adjacent locations.
+        // New animals are born into adjacent locations.
         // Get a list of adjacent free locations.
         Field field = getField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
@@ -160,23 +121,15 @@ public abstract class AbstractAnimalManager implements Animal
         }
     }
     
+    @Override
     abstract public Animal createAnimal(boolean randomAge, Field field, Location location);
         
-    /**
-     * An animal can breed if it has reached the breeding age.
-     * @return true if the animal can breed, false otherwise.
-     */
     @Override
     public boolean canBreed()
     {
         return age >= getBreedingAge();
     }
     
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
     @Override
     public int breed()
     {
@@ -187,22 +140,16 @@ public abstract class AbstractAnimalManager implements Animal
         return births;
     }
 
-    /**
-     * Return the breeding probability of this animal.
-     * @return The breeding probability of this animal.
-     */
+    @Override
     abstract public double getBreedingProbability();
     
-    /**
-     * Return the maximum litter size of this animal.
-     * @return The maximum litter size of this animal.
-     */
+    @Override
     abstract public int getMaxLitterSize();
     
-    /**
-     * Return the breeding age of this animal.
-     * @return The breeding age of this animal.
-     */
+    @Override
     abstract public int getBreedingAge();
+    
+    @Override
+    abstract public int getFoodValue();
     
 }

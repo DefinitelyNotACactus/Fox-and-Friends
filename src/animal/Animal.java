@@ -82,11 +82,11 @@ public interface Animal
     void giveBirth(List<Animal> newAnimals);
     
     /**
-     * An new animal will be created from this method.
-     * @param randomAge Will it start with a random age?
-     * @param field The Animal's field
-     * @param location The Animal's starting location
-     * @return A new Animal
+     * Creates a new Animal
+     * @param randomAge If true, the animal will have random age and, if a predator, hunger level.
+     * @param field The field currently occupied.
+     * @param location The location within the field.
+     * @return A new Animal.
      */
     Animal createAnimal(boolean randomAge, Field field, Location location);
     
@@ -120,4 +120,10 @@ public interface Animal
      * @return The breeding age of this animal.
      */
     int getBreedingAge();
+    
+    /**
+     * Return the food value of this animal
+     * @return The food value of this animal
+     */
+    int getFoodValue();
 }
