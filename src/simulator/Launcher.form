@@ -92,11 +92,11 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" max="32767" attributes="0"/>
+                  <Component id="title" max="32767" attributes="0"/>
                   <Component id="btStart" alignment="0" max="32767" attributes="0"/>
                   <Component id="btLong" alignment="1" pref="295" max="32767" attributes="0"/>
-                  <Component id="btOneStep" alignment="0" pref="295" max="32767" attributes="0"/>
-                  <Component id="btVarSteps" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btLongSkip" alignment="0" pref="295" max="32767" attributes="0"/>
+                  <Component id="btOneStep" alignment="0" max="32767" attributes="0"/>
                   <Component id="btReset" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -107,15 +107,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="32" max="-2" attributes="0"/>
+              <Component id="title" min="-2" pref="32" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btStart" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btLong" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btOneStep" min="-2" pref="40" max="-2" attributes="0"/>
+              <Component id="btLongSkip" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btVarSteps" min="-2" pref="40" max="-2" attributes="0"/>
+              <Component id="btOneStep" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btReset" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -124,7 +124,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="title">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="&quot;Please select an action:&quot;" type="code"/>
@@ -132,7 +132,7 @@
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jLabel1.setHorizontalAlignment(SwingConstants.CENTER);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="title.setHorizontalAlignment(SwingConstants.CENTER);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btStart">
@@ -145,30 +145,30 @@
     </Component>
     <Component class="javax.swing.JButton" name="btLong">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Run Long Simulation"/>
+        <Property name="text" type="java.lang.String" value="Run Long Simulation with Timer"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLongActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JButton" name="btLongSkip">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Run Long Simulation with no Timer"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLongSkipActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JButton" name="btOneStep">
       <Properties>
         <Property name="text" type="java.lang.String" value="Simulate One Step"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btOneStepActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btVarSteps">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Simulate x Steps"/>
-        <Property name="toolTipText" type="java.lang.String" value="Disabled for now"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btVarStepsActionPerformed"/>
-      </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btVarSteps.setEnabled(false);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btOneStep.setEnabled(false);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btReset">

@@ -37,11 +37,11 @@ public class Launcher extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         btOk = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         btStart = new javax.swing.JButton();
         btLong = new javax.swing.JButton();
+        btLongSkip = new javax.swing.JButton();
         btOneStep = new javax.swing.JButton();
-        btVarSteps = new javax.swing.JButton();
         btReset = new javax.swing.JButton();
 
         jDialog1.setAlwaysOnTop(true);
@@ -92,9 +92,9 @@ public class Launcher extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fox and Friends Launcher");
 
-        jLabel1.setText("Please select an action:");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setText("Please select an action:");
+        title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
 
         btStart.setText("Start Simulation");
         btStart.addActionListener(new java.awt.event.ActionListener() {
@@ -103,25 +103,25 @@ public class Launcher extends javax.swing.JFrame {
             }
         });
 
-        btLong.setText("Run Long Simulation");
+        btLong.setText("Run Long Simulation with Timer");
         btLong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btLongActionPerformed(evt);
             }
         });
 
-        btOneStep.setText("Simulate One Step");
-        btOneStep.addActionListener(new java.awt.event.ActionListener() {
+        btLongSkip.setText("Run Long Simulation with no Timer");
+        btLongSkip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btOneStepActionPerformed(evt);
+                btLongSkipActionPerformed(evt);
             }
         });
 
-        btVarSteps.setText("Simulate x Steps");
-        btVarSteps.setToolTipText("Disabled for now");
-        btVarSteps.addActionListener(new java.awt.event.ActionListener() {
+        btOneStep.setText("Simulate One Step");
+        btOneStep.setToolTipText("");
+        btOneStep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btVarStepsActionPerformed(evt);
+                btOneStepActionPerformed(evt);
             }
         });
 
@@ -139,11 +139,11 @@ public class Launcher extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btLong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addComponent(btOneStep, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addComponent(btVarSteps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btLongSkip, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                    .addComponent(btOneStep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -151,21 +151,21 @@ public class Launcher extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btStart, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btLong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btOneStep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btLongSkip, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btVarSteps, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btOneStep, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btReset, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btVarSteps.setEnabled(false);
+        btOneStep.setEnabled(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -178,22 +178,27 @@ public class Launcher extends javax.swing.JFrame {
 
     private void btLongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLongActionPerformed
         setPressed(false);
-        simulator.runLongSimulation();
+        simulator.setSkip(false);
+        simulator.runLongSimulation(true);
+        enableSimulationButtons(false);
+        btOneStep.setEnabled(true);
     }//GEN-LAST:event_btLongActionPerformed
+
+    private void btLongSkipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLongSkipActionPerformed
+        simulator.runLongSimulation(false);
+        enableSimulationButtons(false);
+        btOneStep.setEnabled(true);
+    }//GEN-LAST:event_btLongSkipActionPerformed
 
     private void btOneStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOneStepActionPerformed
         setPressed(true);
         simulator.simulateOneStep();
     }//GEN-LAST:event_btOneStepActionPerformed
 
-    private void btVarStepsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVarStepsActionPerformed
-        jDialog1.setVisible(true);
-        enableSimulationButtons(false);
-    }//GEN-LAST:event_btVarStepsActionPerformed
-
     private void btResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btResetActionPerformed
         setPressed(true);
         simulator.reset();
+        enableSimulationButtons(true);
     }//GEN-LAST:event_btResetActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -248,9 +253,11 @@ public class Launcher extends javax.swing.JFrame {
      */
     private void enableSimulationButtons(boolean enable){
         btLong.setEnabled(enable);
+        btLongSkip.setEnabled(enable);
+        if(!btReset.isEnabled() && enable){
+            btReset.setEnabled(enable);
+        }
         btOneStep.setEnabled(enable);
-        btReset.setEnabled(enable);
-        //btVarSteps.setEnabled(enable);
     }
     
     private static void setPressed(boolean pressed){
@@ -263,14 +270,14 @@ public class Launcher extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btLong;
+    private javax.swing.JButton btLongSkip;
     private javax.swing.JButton btOk;
     private javax.swing.JButton btOneStep;
     private javax.swing.JButton btReset;
     private javax.swing.JButton btStart;
-    private javax.swing.JButton btVarSteps;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }
