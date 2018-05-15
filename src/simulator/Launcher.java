@@ -14,6 +14,8 @@ import javax.swing.SwingConstants;
 public class Launcher extends javax.swing.JFrame {
 
     private Simulator simulator;
+    public static boolean isPressed = false;
+    
     /**
      * Creates new form Executable_GUI
      */
@@ -175,10 +177,12 @@ public class Launcher extends javax.swing.JFrame {
     }//GEN-LAST:event_btStartActionPerformed
 
     private void btLongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLongActionPerformed
+        setPressed(false);
         simulator.runLongSimulation();
     }//GEN-LAST:event_btLongActionPerformed
 
     private void btOneStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOneStepActionPerformed
+        setPressed(true);
         simulator.simulateOneStep();
     }//GEN-LAST:event_btOneStepActionPerformed
 
@@ -246,6 +250,14 @@ public class Launcher extends javax.swing.JFrame {
         btOneStep.setEnabled(enable);
         btReset.setEnabled(enable);
         //btVarSteps.setEnabled(enable);
+    }
+    
+    private static void setPressed(boolean pressed){
+        isPressed = pressed;
+    }
+    
+    public static boolean getPressed(){
+        return isPressed;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
