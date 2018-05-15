@@ -19,7 +19,7 @@ public class KomodoDragon extends Animal {
     // The age to which a dragon can live.
     private static final int MAX_AGE = 300;
     // The likelihood of a dragon breeding.
-    private static final double BREEDING_PROBABILITY = 0.01;
+    private static final double BREEDING_PROBABILITY = 0.02;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 20;
     // The food value of a single fox. In effect, this is the
