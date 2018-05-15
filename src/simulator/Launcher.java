@@ -192,6 +192,7 @@ public class Launcher extends javax.swing.JFrame {
     }//GEN-LAST:event_btVarStepsActionPerformed
 
     private void btResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btResetActionPerformed
+        setPressed(true);
         simulator.reset();
     }//GEN-LAST:event_btResetActionPerformed
 
