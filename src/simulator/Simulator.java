@@ -1,9 +1,8 @@
 package simulator;
 
-import animal.Animal;
-import animal.Fox;
-import animal.KomodoDragon;
-import animal.Rabbit;
+import animal.predator.Fox;
+import animal.predator.KomodoDragon;
+import animal.prey.Rabbit;
 import field.Field;
 import field.Location;
 import field.Randomizer;
@@ -14,6 +13,7 @@ import java.util.Iterator;
 import java.awt.Color;
 import java.util.Timer;
 import java.util.TimerTask;
+import animal.Animal;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -36,7 +36,10 @@ public class Simulator
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;   
     
-    private Timer time;        
+    //Timer Fields
+    private Timer time;
+    private boolean skip = false;
+    
     // List of animals in the field.
     private List<Animal> animals;
     // The current state of the field.
@@ -85,30 +88,52 @@ public class Simulator
     /**
      * Run the simulation from its current state for a reasonably long period,
      * e.g. 500 steps.
+     * @param timer Is the timer is enabled?
      */
-    public void runLongSimulation()
+    public void runLongSimulation(boolean timer)
     {
-        simulate(500);
+        if(timer){
+            simulate(500);
+        } else {
+            simulateWithNoTimer(500);
+        }
     }
     
     /**
-     * Run the simulation from its current state for the given number of steps.
+     * Run the simulation from its current state for the given number of steps with a timer.
      * Stop before the given number of steps if it ceases to be viable.
      * @param numSteps The number of steps to run for.
      */
     public void simulate(int numSteps)
     {
         time.schedule(new TimerTask() {
+            int i = 0;
             @Override
             public void run(){
-              if(view.isViable(field) && !Launcher.getPressed()){
+              if(view.isViable(field) && !Launcher.getPressed() && !getSkip()){
                  simulateOneStep();
+                 i++;
               } else {
                   cancel();
                   time.purge();
+                  if(getSkip()){
+                    simulateWithNoTimer(i);
+                  }
               }
             }
-        }, 0, 300);
+        }, 0, 200);
+    }
+    
+    /**
+     * Run the simulation from its current state for the given number of steps without a timer.
+     * Stop before the given number of steps if it ceases to be viable.
+     * @param steps The number of steps to run for.
+     */
+    public void simulateWithNoTimer(int steps)
+    {
+        for(int step = 1; step <= 500 && view.isViable(field); step++) {
+            simulateOneStep();
+        }
     }
     
     /**
@@ -145,9 +170,23 @@ public class Simulator
         step = 0;
         animals.clear();
         populate();
-        
+        setSkip(false);
         // Show the starting state in the view.
         view.showStatus(step, field);
+    }
+    
+    /**
+     * Gets the value of the skip field
+     * @return boolean if the simulation is to be skipped.
+     */
+    public boolean getSkip()
+    {
+        return skip;
+    }
+    
+    public void setSkip(boolean skip)
+    {
+        this.skip = skip;
     }
     
     /**
