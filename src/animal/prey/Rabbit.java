@@ -1,9 +1,11 @@
-package animal;
+package animal.prey;
 
 import field.Field;
 import field.Location;
 import field.Randomizer;
 import java.util.List;
+import animal.Animal;
+import animal.AnimalManager;
 
 /**
  * A simple model of a rabbit.
@@ -12,7 +14,7 @@ import java.util.List;
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
-public class Rabbit extends Animal
+public class Rabbit extends AnimalManager
 {
     // Characteristics shared by all rabbits (static fields).
 
@@ -64,7 +66,15 @@ public class Rabbit extends Animal
         }
     }
     
-     protected Animal createAnimal(boolean randomAge, Field field, Location location)
+    /**
+     *
+     * @param randomAge
+     * @param field
+     * @param location
+     * @return
+     */
+    @Override
+    public Animal createAnimal(boolean randomAge, Field field, Location location)
     {
         return new Rabbit(randomAge, field, location);
     }
@@ -74,7 +84,7 @@ public class Rabbit extends Animal
      * @return The breeding age of this rabbit.
      */
     @Override
-    protected int getBreedingAge()
+    public int getBreedingAge()
     {
         return BREEDING_AGE;
     }
@@ -84,7 +94,7 @@ public class Rabbit extends Animal
      * @return The breeding probability of this rabbit.
      */
     @Override
-    protected double getBreedingProbability()
+    public double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
@@ -94,7 +104,7 @@ public class Rabbit extends Animal
      * @return The maximum litter size of this rabbit.
      */
     @Override
-    protected int getMaxLitterSize()
+    public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
     }
@@ -104,7 +114,7 @@ public class Rabbit extends Animal
      * @return The maximum age of this rabbit
      */
     @Override
-    protected int getMaxAge()
+    public int getMaxAge()
     {
         return MAX_AGE;
     }

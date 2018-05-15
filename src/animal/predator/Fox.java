@@ -1,10 +1,12 @@
-package animal;
+package animal.predator;
 
+import animal.prey.Rabbit;
 import field.Field;
 import field.Location;
 import field.Randomizer;
 import java.util.List;
 import java.util.Iterator;
+import animal.Animal;
 
 /**
  * A simple model of a fox.
@@ -13,7 +15,7 @@ import java.util.Iterator;
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
-public class Fox extends Animal
+public class Fox extends PredatorManager
 {
     // Characteristics shared by all foxes (static fields).
     
@@ -28,11 +30,6 @@ public class Fox extends Animal
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
     private static final int RABBIT_FOOD_VALUE = 7;
-    
-    // Individual characteristics (instance fields).
-    
-    // The fox's food level, which is increased by eating rabbits.
-    private int foodLevel;
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -47,10 +44,10 @@ public class Fox extends Animal
         super(0, field, location);
         if(randomAge) {
             setAge(Randomizer.getRandom().nextInt(MAX_AGE));
-            foodLevel = Randomizer.getRandom().nextInt(RABBIT_FOOD_VALUE);
+            setFoodLevel(Randomizer.getRandom().nextInt(RABBIT_FOOD_VALUE));
         }
         else {
-            foodLevel = RABBIT_FOOD_VALUE;
+            setFoodLevel(RABBIT_FOOD_VALUE);
         }
     }
     
@@ -85,29 +82,20 @@ public class Fox extends Animal
         }
     }
     
-    protected Animal createAnimal(boolean randomAge, Field field, Location location)
+    @Override
+    public Animal createAnimal(boolean randomAge, Field field, Location location)
     {
         return new Fox(randomAge, field, location);
     }
-    
-    /**
-     * Make this fox more hungry. This could result in the fox's death.
-     */
-    private void incrementHunger()
-    {
-        foodLevel--;
-        if(foodLevel <= 0) {
-            setDead();
-        }
-    }
-    
+
     /**
      * Tell the fox to look for rabbits adjacent to its current location.
      * Only the first live rabbit is eaten.
      * @param location Where in the field it is located.
      * @return Where food was found, or null if it wasn't.
      */
-    private Location findFood(Location location)
+    @Override
+    public Location findFood(Location location)
     {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
@@ -119,7 +107,7 @@ public class Fox extends Animal
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) { 
                     rabbit.setDead();
-                    foodLevel = RABBIT_FOOD_VALUE;
+                    setFoodLevel(RABBIT_FOOD_VALUE);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -133,7 +121,7 @@ public class Fox extends Animal
      * @return The breeding age of this fox.
      */
     @Override
-    protected int getBreedingAge()
+    public int getBreedingAge()
     {
         return BREEDING_AGE;
     }
@@ -143,7 +131,7 @@ public class Fox extends Animal
      * @return The breeding probability of this fox.
      */
     @Override
-    protected double getBreedingProbability()
+    public double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
@@ -153,7 +141,7 @@ public class Fox extends Animal
      * @return The maximum litter size of this fox.
      */
     @Override
-    protected int getMaxLitterSize()
+    public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
     }
@@ -163,9 +151,14 @@ public class Fox extends Animal
      * @return The maximum age of this fox
      */
     @Override
-    protected int getMaxAge()
+    public int getMaxAge()
     {
         return MAX_AGE;
+    }
+    
+    @Override
+    public int getFoodValue(){
+        return RABBIT_FOOD_VALUE;
     }
     
     /**

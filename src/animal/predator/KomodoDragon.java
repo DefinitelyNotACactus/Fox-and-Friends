@@ -1,10 +1,11 @@
-package animal;
+package animal.predator;
 
 import field.Field;
 import field.Location;
 import field.Randomizer;
 import java.util.Iterator;
 import java.util.List;
+import animal.Animal;
 
 /** 
  * This class was based on the Fox and Rabbits v2 project from the Objects First with BlueJ book
@@ -13,8 +14,11 @@ import java.util.List;
  * @author David Pereira
  * @author Gabriel Davi
  */
-public class KomodoDragon extends Animal {
+public class KomodoDragon extends PredatorManager
+{
+    // Characteristics shared by all dragons (static fields).
     
+    // The age at which a dragon can start to breed.
     private static final int BREEDING_AGE = 30;
     // The age to which a dragon can live.
     private static final int MAX_AGE = 300;
@@ -26,19 +30,14 @@ public class KomodoDragon extends Animal {
     // number of steps a dragon can go before it has to eat again.
     private static final int FOX_FOOD_VALUE = 28;
     
-    // Individual characteristics (instance fields).
-    
-    // The dragon's food level, which is increased by eating foxes.
-    private int foodLevel;
-    
     public KomodoDragon(boolean randomAge, Field field, Location location){
         super(0, field, location);
         if(randomAge) {
             setAge(Randomizer.getRandom().nextInt(MAX_AGE));
-            foodLevel = Randomizer.getRandom().nextInt(FOX_FOOD_VALUE);
+            setFoodLevel(Randomizer.getRandom().nextInt(FOX_FOOD_VALUE));
         }
         else {
-            foodLevel = FOX_FOOD_VALUE;
+            setFoodLevel(FOX_FOOD_VALUE);
         }
     }
     
@@ -73,29 +72,20 @@ public class KomodoDragon extends Animal {
         }
     }
     
-     protected Animal createAnimal(boolean randomAge, Field field, Location location)
+    @Override
+    public Animal createAnimal(boolean randomAge, Field field, Location location)
     {
         return new KomodoDragon(randomAge, field, location);
     }
-    
-    /**
-     * Make this dragon more hungry. This could result in the dragon's death.
-     */
-    private void incrementHunger()
-    {
-        foodLevel--;
-        if(foodLevel <= 0) {
-            setDead();
-        }
-    }
-    
+ 
     /**
      * Tell the dragon to look for foxes adjacent to its current location.
      * Only the first live fox is eaten.
      * @param location Where in the field it is located.
      * @return Where food was found, or null if it wasn't.
      */
-    private Location findFood(Location location)
+    @Override
+    public Location findFood(Location location)
     {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
@@ -107,7 +97,7 @@ public class KomodoDragon extends Animal {
                 Fox fox = (Fox) animal;
                 if(fox.isAlive()) { 
                     fox.setDead();
-                    foodLevel = FOX_FOOD_VALUE;
+                    setFoodLevel(FOX_FOOD_VALUE);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -121,7 +111,7 @@ public class KomodoDragon extends Animal {
      * @return The breeding age of this dragon.
      */
     @Override
-    protected int getBreedingAge()
+    public int getBreedingAge()
     {
         return BREEDING_AGE;
     }
@@ -131,7 +121,7 @@ public class KomodoDragon extends Animal {
      * @return The breeding probability of this dragon.
      */
     @Override
-    protected double getBreedingProbability()
+    public double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
@@ -141,7 +131,7 @@ public class KomodoDragon extends Animal {
      * @return The maximum litter size of this dragon.
      */
     @Override
-    protected int getMaxLitterSize()
+    public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
     }
@@ -151,9 +141,14 @@ public class KomodoDragon extends Animal {
      * @return The maximum age of this dragon
      */
     @Override
-    protected int getMaxAge()
+    public int getMaxAge()
     {
         return MAX_AGE;
+    }
+    
+    @Override
+    public int getFoodValue(){
+        return FOX_FOOD_VALUE;
     }
     
     /**
@@ -164,5 +159,6 @@ public class KomodoDragon extends Animal {
     public String toString() {
         return "Komodo Dragon";
     }
+    
 }
 
