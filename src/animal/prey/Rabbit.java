@@ -5,7 +5,7 @@ import field.Location;
 import field.Randomizer;
 import java.util.List;
 import animal.Animal;
-import animal.AnimalManager;
+import animal.AbstractAnimalManager;
 
 /**
  * A simple model of a rabbit.
@@ -14,7 +14,7 @@ import animal.AnimalManager;
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
-public class Rabbit extends AnimalManager
+public class Rabbit extends AbstractAnimalManager
 {
     // Characteristics shared by all rabbits (static fields).
 

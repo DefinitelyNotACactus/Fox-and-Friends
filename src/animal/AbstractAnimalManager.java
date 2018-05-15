@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A class representing shared characteristics of animals.
+ * A class that implements the Animal methods.
  * 
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
-public abstract class AnimalManager implements Animal
+public abstract class AbstractAnimalManager implements Animal
 {
     //The animal's age.
     private int age;
@@ -32,7 +32,7 @@ public abstract class AnimalManager implements Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public AnimalManager(int age, Field field, Location location)
+    public AbstractAnimalManager(int age, Field field, Location location)
     {
         this.age = age;
         alive = true;
@@ -51,6 +51,7 @@ public abstract class AnimalManager implements Animal
      * Check whether the animal is alive or not.
      * @return true if the animal is still alive.
      */
+    @Override
     public boolean isAlive()
     {
         return alive;
@@ -60,6 +61,7 @@ public abstract class AnimalManager implements Animal
      * Indicate that the animal is no longer alive.
      * It is removed from the field.
      */
+    @Override
     public void setDead()
     {
         alive = false;
@@ -74,6 +76,7 @@ public abstract class AnimalManager implements Animal
      * Return the animal's location.
      * @return The animal's location.
      */
+    @Override
     public Location getLocation()
     {
         return location;
@@ -83,6 +86,7 @@ public abstract class AnimalManager implements Animal
      * Return the animal's field.
      * @return The animal's field.
      */
+    @Override
     public Field getField()
     {
         return field;
@@ -92,6 +96,7 @@ public abstract class AnimalManager implements Animal
      * Place the animal at the new location in the given field.
      * @param newLocation The animal's new location.
      */
+    @Override
     public void setLocation(Location newLocation)
     {
         if(location != null) {
@@ -105,6 +110,7 @@ public abstract class AnimalManager implements Animal
      * Changes the animal age.
      * @param newAge The animal's new age
      */
+    @Override
     public void setAge(int newAge)
     {
         age = newAge;
@@ -114,6 +120,7 @@ public abstract class AnimalManager implements Animal
      * Return the animal's age
      * @return The animal's age
      */
+    @Override
     public int getAge()
     {
         return age;
@@ -123,6 +130,7 @@ public abstract class AnimalManager implements Animal
      * Increase the age.
      * This could result in the animal's death.
      */
+    @Override
     public void incrementAge()
     {
         age++;
@@ -137,6 +145,7 @@ public abstract class AnimalManager implements Animal
      */
     abstract public int getMaxAge();
     
+    @Override
     public void giveBirth(List<Animal> newAnimals)
     {
         // New rabbits are born into adjacent locations.
@@ -157,6 +166,7 @@ public abstract class AnimalManager implements Animal
      * An animal can breed if it has reached the breeding age.
      * @return true if the animal can breed, false otherwise.
      */
+    @Override
     public boolean canBreed()
     {
         return age >= getBreedingAge();
@@ -167,6 +177,7 @@ public abstract class AnimalManager implements Animal
      * if it can breed.
      * @return The number of births (may be zero).
      */
+    @Override
     public int breed()
     {
         int births = 0;

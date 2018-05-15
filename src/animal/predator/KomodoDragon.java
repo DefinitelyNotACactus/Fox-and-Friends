@@ -14,7 +14,7 @@ import animal.Animal;
  * @author David Pereira
  * @author Gabriel Davi
  */
-public class KomodoDragon extends PredatorManager
+public class KomodoDragon extends AbstractPredatorManager
 {
     // Characteristics shared by all dragons (static fields).
     

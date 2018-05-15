@@ -15,7 +15,7 @@ import animal.Animal;
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
-public class Fox extends PredatorManager
+public class Fox extends AbstractPredatorManager
 {
     // Characteristics shared by all foxes (static fields).
     
