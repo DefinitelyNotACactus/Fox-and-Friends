@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -32,8 +34,9 @@ public class Simulator
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
-
+    private static final double RABBIT_CREATION_PROBABILITY = 0.08;   
+    
+    private Timer time;        
     // List of animals in the field.
     private List<Animal> animals;
     // The current state of the field.
@@ -49,6 +52,7 @@ public class Simulator
     public Simulator()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+        time = new Timer();
     }
     
     /**
@@ -94,9 +98,17 @@ public class Simulator
      */
     public void simulate(int numSteps)
     {
-        for(int step = 1; step <= numSteps && view.isViable(field); step++) {
-            simulateOneStep();
-        }
+        time.schedule(new TimerTask() {
+            @Override
+            public void run(){
+              if(view.isViable(field) && !Launcher.getPressed()){
+                 simulateOneStep();
+              } else {
+                  cancel();
+                  time.purge();
+              }
+            }
+        }, 0, 300);
     }
     
     /**
