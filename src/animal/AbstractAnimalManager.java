@@ -150,6 +150,5 @@ public abstract class AbstractAnimalManager implements Animal
     abstract public int getBreedingAge();
     
     @Override
-    abstract public int getFoodValue();
-    
+    abstract public int getFoodValue();  
 }

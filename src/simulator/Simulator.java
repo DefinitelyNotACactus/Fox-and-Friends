@@ -26,9 +26,9 @@ public class Simulator
 {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
-    private static final int DEFAULT_WIDTH = 60;//was 50
+    private static final int DEFAULT_WIDTH = 128;//was 50
     // The default depth of the grid.
-    private static final int DEFAULT_DEPTH = 60;//was 50
+    private static final int DEFAULT_DEPTH = 128;//was 50
     // The probability that a fox will be created in any given grid position.
     private static final double DRAGON_CREATION_PROBABILITY = 0.01;
     // The probability that a fox will be created in any given grid position.

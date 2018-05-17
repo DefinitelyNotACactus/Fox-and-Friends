@@ -4,6 +4,7 @@ import animal.AbstractAnimalManager;
 import animal.Animal;
 import field.Field;
 import field.Location;
+import field.Randomizer;
 import java.util.List;
 
 /**
@@ -19,14 +20,19 @@ public abstract class AbstractPredatorManager extends AbstractAnimalManager
     /**
      * Create a new predator at location in field.
      * 
-     * @param age The predator's age.
+     * @param randomAge If true, the predator will have random age and hunger level.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public AbstractPredatorManager(int age, Field field, Location location) 
+    public AbstractPredatorManager(boolean randomAge, Field field, Location location) 
     {
-        super(age, field, location);
-        foodLevel = getMainPreyFoodValue();
+        super(0, field, location);
+        if(randomAge) {
+            setAge(Randomizer.getRandom().nextInt(getMaxAge()));
+            setFoodLevel(Randomizer.getRandom().nextInt(getMainPreyFoodValue()));
+        } else {
+            foodLevel = getMainPreyFoodValue();
+        }
     }
     
     /**
@@ -94,6 +100,5 @@ public abstract class AbstractPredatorManager extends AbstractAnimalManager
      * Gives the food value of the main prey of this predator.
      * @return The food value of the predator's main prey.
      */
-    abstract public int getMainPreyFoodValue();
-    
+    abstract public int getMainPreyFoodValue();   
 }

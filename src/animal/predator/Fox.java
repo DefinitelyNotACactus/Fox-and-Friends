@@ -29,7 +29,7 @@ public class Fox extends AbstractPredatorManager
     private static final int MAX_LITTER_SIZE = 5;
     // The food value of a fox.
     private static final int FOOD_VALUE = 28;
-    // The food value of a rabbit.
+    // The food value of a rabbit, the fox's main prey.
     private static final int RABBIT_FOOD_VALUE = 7;
 
     /**
@@ -42,11 +42,7 @@ public class Fox extends AbstractPredatorManager
      */
     public Fox(boolean randomAge, Field field, Location location)
     {
-        super(0, field, location);
-        if(randomAge) {
-            setAge(Randomizer.getRandom().nextInt(MAX_AGE));
-            setFoodLevel(Randomizer.getRandom().nextInt(RABBIT_FOOD_VALUE));
-        }
+        super(randomAge, field, location);
     }
     
     @Override

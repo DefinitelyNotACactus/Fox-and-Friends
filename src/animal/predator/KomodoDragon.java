@@ -28,15 +28,12 @@ public class KomodoDragon extends AbstractPredatorManager
     private static final int MAX_LITTER_SIZE = 20;
     // The food value of a dragon.
     private static final int FOOD_VALUE = 56;
-    // The food value of a fox.
+    // The food value of a fox, the dragon's main prey.
     private static final int FOX_FOOD_VALUE = 28;
     
-    public KomodoDragon(boolean randomAge, Field field, Location location){
-        super(0, field, location);
-        if(randomAge) {
-            setAge(Randomizer.getRandom().nextInt(MAX_AGE));
-            setFoodLevel(Randomizer.getRandom().nextInt(FOX_FOOD_VALUE));
-        }
+    public KomodoDragon(boolean randomAge, Field field, Location location)
+    {
+        super(randomAge, field, location);
     }
     
     @Override
@@ -116,7 +113,6 @@ public class KomodoDragon extends AbstractPredatorManager
     public String toString() 
     {
         return "Komodo Dragon";
-    }
-    
+    }   
 }
 
