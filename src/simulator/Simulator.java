@@ -1,8 +1,8 @@
 package simulator;
 
-import animal.predator.Fox;
-import animal.predator.KomodoDragon;
-import animal.prey.Rabbit;
+import animal.Fox;
+import animal.KomodoDragon;
+import animal.Rabbit;
 import field.Field;
 import field.Location;
 import field.Randomizer;
@@ -13,8 +13,8 @@ import java.util.Iterator;
 import java.awt.Color;
 import java.util.Timer;
 import java.util.TimerTask;
-import animal.Animal;
-import animal.prey.Platypus;
+import animal.AbstractAnimal;
+import animal.Platypus;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -43,7 +43,7 @@ public class Simulator
     private Timer time;
     
     // List of animals in the field.
-    private List<Animal> animals;
+    private List<AbstractAnimal> animals;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -74,7 +74,7 @@ public class Simulator
             width = DEFAULT_WIDTH;
         }
         
-        animals = new ArrayList<Animal>();
+        animals = new ArrayList<AbstractAnimal>();
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
@@ -113,7 +113,7 @@ public class Simulator
             int i = 0;
             @Override
             public void run(){
-              if(view.isViable(field) && !Launcher.getPressed()){
+              if(view.isViable(field) && !Launcher.getPressed() && i < numSteps){
                  simulateOneStep();
                  i++;
               } else {
@@ -131,7 +131,7 @@ public class Simulator
      */
     public void simulateWithNoTimer(int steps)
     {
-        for(int step = 1; step <= 500 && view.isViable(field); step++) {
+        for(int step = 1; step <= steps && view.isViable(field); step++) {
             simulateOneStep();
         }
     }
@@ -146,10 +146,10 @@ public class Simulator
         step++;
 
         // Provide space for newborn animals.
-        List<Animal> newAnimals = new ArrayList<Animal>();        
+        List<AbstractAnimal> newAnimals = new ArrayList<AbstractAnimal>();        
         // Let all rabbits act.
-        for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
-            Animal animal = it.next();
+        for(Iterator<AbstractAnimal> it = animals.iterator(); it.hasNext(); ) {
+            AbstractAnimal animal = it.next();
             animal.act(newAnimals);
             if(!animal.isAlive()) {
                 it.remove();

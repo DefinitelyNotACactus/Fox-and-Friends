@@ -12,7 +12,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
-public abstract class Animal
+public abstract class AbstractAnimal
 {
     //The animal's age.
     private int age;
@@ -32,7 +32,7 @@ public abstract class Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(int age, Field field, Location location)
+    public AbstractAnimal(int age, Field field, Location location)
     {
         this.age = age;
         alive = true;
@@ -45,7 +45,7 @@ public abstract class Animal
      * whatever it wants/needs to do.
      * @param newAnimals A list to add newly born animals to.
      */
-    abstract public void act(List<Animal> newAnimals);
+    abstract public void act(List<AbstractAnimal> newAnimals);
 
     /**
      * Check whether the animal is alive or not.
@@ -60,7 +60,7 @@ public abstract class Animal
      * Indicate that the animal is no longer alive.
      * It is removed from the field.
      */
-    public void setDead()
+    protected void setDead()
     {
         alive = false;
         if(location != null) {
@@ -142,7 +142,7 @@ public abstract class Animal
      * New births will be made into free adjacent locations.
      * @param newAnimals A list to add newly born rabbits to.
      */
-    protected void giveBirth(List<Animal> newAnimals)
+    protected void giveBirth(List<AbstractAnimal> newAnimals)
     {
         // New animals are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -151,7 +151,7 @@ public abstract class Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Animal young = createAnimal(false, field, loc);
+            AbstractAnimal young = createAnimal(false, field, loc);
             newAnimals.add(young);
         }
     }
@@ -163,7 +163,7 @@ public abstract class Animal
      * @param location The location within the field.
      * @return A new Animal.
      */
-    abstract protected Animal createAnimal(boolean randomAge, Field field, Location location);
+    abstract protected AbstractAnimal createAnimal(boolean randomAge, Field field, Location location);
         
     /**
      * An animal can breed if it has reached the breeding age.

@@ -1,11 +1,10 @@
-package animal.prey;
+package animal;
 
 import field.Field;
 import field.Location;
-import field.Randomizer;
-import animal.Animal;
 
 /**
+ * 
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
  * 
@@ -37,14 +36,11 @@ public class Rabbit extends AbstractPrey
      */
     public Rabbit(boolean randomAge, Field field, Location location)
     {
-        super(0, field, location);
-        if(randomAge) {
-            setAge(Randomizer.getRandom().nextInt(MAX_AGE));
-        }
+        super(randomAge, field, location);
     }
     
     @Override
-    protected Animal createAnimal(boolean randomAge, Field field, Location location)
+    protected AbstractAnimal createAnimal(boolean randomAge, Field field, Location location)
     {
         return new Rabbit(randomAge, field, location);
     }
@@ -74,7 +70,7 @@ public class Rabbit extends AbstractPrey
     }
     
     @Override
-    public int getFoodValue()
+    protected int getFoodValue()
     {
         return FOOD_VALUE;
     }

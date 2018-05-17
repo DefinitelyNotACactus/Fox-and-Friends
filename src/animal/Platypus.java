@@ -1,16 +1,13 @@
-package animal.prey;
+package animal;
 
 import field.Field;
 import field.Location;
-import field.Randomizer;
-import animal.Animal;
 
 /**
- * A simple model of a Platypus.
- * Platypuses age, move, breed, and die.
+ * This class was based on the Rabbit class from Fox and Rabbits v2 project from the Objects First with BlueJ book
  * 
- * @author David J. Barnes and Michael Kolling
- * @version 2008.03.30
+ * @author David Pereira
+ * @author Gabriel Davi
  */
 public class Platypus extends AbstractPrey
 {
@@ -37,44 +34,41 @@ public class Platypus extends AbstractPrey
      */
     public Platypus(boolean randomAge, Field field, Location location)
     {
-        super(0, field, location);
-        if(randomAge) {
-            setAge(Randomizer.getRandom().nextInt(MAX_AGE));
-        }
+        super(randomAge, field, location);
     }
     
     @Override
-    public Animal createAnimal(boolean randomAge, Field field, Location location)
+    public AbstractAnimal createAnimal(boolean randomAge, Field field, Location location)
     {
         return new Platypus(randomAge, field, location);
     }
     
     @Override
-    public int getBreedingAge()
+    protected int getBreedingAge()
     {
         return BREEDING_AGE;
     }
     
     @Override
-    public double getBreedingProbability()
+    protected double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
     
     @Override
-    public int getMaxLitterSize()
+    protected int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
     }
     
     @Override
-    public int getMaxAge()
+    protected int getMaxAge()
     {
         return MAX_AGE;
     }
     
     @Override
-    public int getFoodValue()
+    protected int getFoodValue()
     {
         return FOOD_VALUE;
     }

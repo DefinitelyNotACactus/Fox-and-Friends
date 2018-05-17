@@ -1,9 +1,7 @@
-package animal.predator;
+package animal;
 
 import field.Field;
 import field.Location;
-import animal.Animal;
-import animal.prey.Rabbit;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class Fox extends AbstractPredator
     // The food value of a fox.
     private static final int FOOD_VALUE = 28;
     // The food value of a rabbit, the fox's main prey.
-    private static final int RABBIT_FOOD_VALUE = 7;
+    private static final int PREY_FOOD_VALUE = 7;
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -45,7 +43,7 @@ public class Fox extends AbstractPredator
     }
     
     @Override
-    protected Animal createAnimal(boolean randomAge, Field field, Location location)
+    protected AbstractAnimal createAnimal(boolean randomAge, Field field, Location location)
     {
         return new Fox(randomAge, field, location);
     }
@@ -103,7 +101,7 @@ public class Fox extends AbstractPredator
     }
     
     @Override
-    public int getFoodValue()
+    protected int getFoodValue()
     {
         return FOOD_VALUE;
     }
@@ -111,7 +109,7 @@ public class Fox extends AbstractPredator
     @Override
     protected int getMainPreyFoodValue()
     {
-        return RABBIT_FOOD_VALUE;
+        return PREY_FOOD_VALUE;
     }
     
     /**

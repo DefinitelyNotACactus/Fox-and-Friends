@@ -1,14 +1,12 @@
-package animal.predator;
+package animal;
 
 import field.Field;
 import field.Location;
 import java.util.Iterator;
 import java.util.List;
-import animal.Animal;
-import animal.prey.Platypus;
 
 /** 
- * This class was based on the Fox and Rabbits v2 project from the Objects First with BlueJ book
+ * This class was based on the Fox class from Fox and Rabbits v2 project from the Objects First with BlueJ book
  * The Komodo Dragon does the same thing as a fox, but instead of eating rabbits, it eats foxes. (Challenge Exercise 10.50)
  *
  * @author David Pereira
@@ -29,7 +27,7 @@ public class KomodoDragon extends AbstractPredator
     // The food value of a dragon.
     private static final int FOOD_VALUE = 56;
     // The food value of a fox, the dragon's main prey.
-    private static final int FOX_FOOD_VALUE = 28;
+    private static final int PREY_FOOD_VALUE = 28;
     
     public KomodoDragon(boolean randomAge, Field field, Location location)
     {
@@ -37,7 +35,7 @@ public class KomodoDragon extends AbstractPredator
     }
     
     @Override
-    public Animal createAnimal(boolean randomAge, Field field, Location location)
+    public AbstractAnimal createAnimal(boolean randomAge, Field field, Location location)
     {
         return new KomodoDragon(randomAge, field, location);
     }
@@ -66,7 +64,7 @@ public class KomodoDragon extends AbstractPredator
                     return where;
                 }
             }
-             if(animal instanceof Platypus) {
+            if(animal instanceof Platypus) {
                 Platypus platypus = (Platypus) animal;
                 if(platypus.isAlive()) { 
                     platypus.setDead();
@@ -104,7 +102,7 @@ public class KomodoDragon extends AbstractPredator
     }
     
     @Override
-    public int getFoodValue()
+    protected int getFoodValue()
     {
         return FOOD_VALUE;
     }
@@ -112,7 +110,7 @@ public class KomodoDragon extends AbstractPredator
     @Override
     protected int getMainPreyFoodValue()
     {
-        return FOX_FOOD_VALUE;
+        return PREY_FOOD_VALUE;
     }
     /**
      * Return the name of this object

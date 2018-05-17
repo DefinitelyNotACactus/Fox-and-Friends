@@ -1,6 +1,5 @@
-package animal.predator;
+package animal;
 
-import animal.Animal;
 import field.Field;
 import field.Location;
 import field.Randomizer;
@@ -11,7 +10,7 @@ import java.util.List;
  * @author David Pereira
  * @author Gabriel Davi
  */
-public abstract class AbstractPredator extends Animal
+public abstract class AbstractPredator extends AbstractAnimal
 {   
     // The predator's food level, which is increased by eating other animals.
     private int foodLevel;
@@ -46,7 +45,7 @@ public abstract class AbstractPredator extends Animal
     }
    
     @Override
-    public void act(List<Animal> newPredators)
+    public void act(List<AbstractAnimal> newPredators)
     {
         incrementAge();
         incrementHunger();

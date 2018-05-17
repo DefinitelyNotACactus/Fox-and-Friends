@@ -1,8 +1,8 @@
-package animal.prey;
+package animal;
 
-import animal.Animal;
 import field.Field;
 import field.Location;
+import field.Randomizer;
 import java.util.List;
 
 /**
@@ -10,21 +10,24 @@ import java.util.List;
  * @author David Pereira
  * @author Gabriel Davi
  */
-public abstract class AbstractPrey extends Animal
+public abstract class AbstractPrey extends AbstractAnimal
 {
     /**
      * Create a new prey at location in field.
      * 
-     * @param age The prey's age.
+     * @param randomAge If true, the prey will have random age.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public AbstractPrey(int age, Field field, Location location) {
-        super(age, field, location);
+    public AbstractPrey(boolean randomAge, Field field, Location location) {
+        super(0, field, location);
+        if(randomAge) {
+            setAge(Randomizer.getRandom().nextInt(getMaxAge()));
+        }
     }
     
     @Override
-    public void act(List<Animal> newPreys)
+    public void act(List<AbstractAnimal> newPreys)
     {
         incrementAge();
         if(isAlive()) {
