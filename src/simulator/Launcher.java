@@ -178,7 +178,6 @@ public class Launcher extends javax.swing.JFrame {
 
     private void btLongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLongActionPerformed
         setPressed(false);
-        simulator.setSkip(false);
         simulator.runLongSimulation(true);
         enableSimulationButtons(false);
         btOneStep.setEnabled(true);

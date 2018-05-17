@@ -2,7 +2,6 @@ package animal.predator;
 
 import field.Field;
 import field.Location;
-import field.Randomizer;
 import java.util.Iterator;
 import java.util.List;
 import animal.Animal;
@@ -14,7 +13,7 @@ import animal.Animal;
  * @author David Pereira
  * @author Gabriel Davi
  */
-public class KomodoDragon extends AbstractPredatorManager
+public class KomodoDragon extends AbstractPredator
 {
     // Characteristics shared by all dragons (static fields).
     
@@ -71,25 +70,25 @@ public class KomodoDragon extends AbstractPredatorManager
     }
 
     @Override
-    public int getBreedingAge()
+    protected int getBreedingAge()
     {
         return BREEDING_AGE;
     }
 
     @Override
-    public double getBreedingProbability()
+    protected double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
     
     @Override
-    public int getMaxLitterSize()
+    protected int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
     }
     
     @Override
-    public int getMaxAge()
+    protected int getMaxAge()
     {
         return MAX_AGE;
     }
@@ -101,7 +100,7 @@ public class KomodoDragon extends AbstractPredatorManager
     }
       
     @Override
-    public int getMainPreyFoodValue()
+    protected int getMainPreyFoodValue()
     {
         return FOX_FOOD_VALUE;
     }

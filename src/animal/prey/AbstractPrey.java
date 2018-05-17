@@ -1,6 +1,5 @@
 package animal.prey;
 
-import animal.AbstractAnimalManager;
 import animal.Animal;
 import field.Field;
 import field.Location;
@@ -11,7 +10,7 @@ import java.util.List;
  * @author David Pereira
  * @author Gabriel Davi
  */
-public abstract class AbstractPreyManager extends AbstractAnimalManager
+public abstract class AbstractPrey extends Animal
 {
     /**
      * Create a new prey at location in field.
@@ -20,7 +19,7 @@ public abstract class AbstractPreyManager extends AbstractAnimalManager
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public AbstractPreyManager(int age, Field field, Location location) {
+    public AbstractPrey(int age, Field field, Location location) {
         super(age, field, location);
     }
     

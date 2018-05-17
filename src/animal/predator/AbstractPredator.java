@@ -1,6 +1,5 @@
 package animal.predator;
 
-import animal.AbstractAnimalManager;
 import animal.Animal;
 import field.Field;
 import field.Location;
@@ -12,7 +11,7 @@ import java.util.List;
  * @author David Pereira
  * @author Gabriel Davi
  */
-public abstract class AbstractPredatorManager extends AbstractAnimalManager
+public abstract class AbstractPredator extends Animal
 {   
     // The predator's food level, which is increased by eating other animals.
     private int foodLevel;
@@ -24,7 +23,7 @@ public abstract class AbstractPredatorManager extends AbstractAnimalManager
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public AbstractPredatorManager(boolean randomAge, Field field, Location location) 
+    public AbstractPredator(boolean randomAge, Field field, Location location) 
     {
         super(0, field, location);
         if(randomAge) {
@@ -38,7 +37,7 @@ public abstract class AbstractPredatorManager extends AbstractAnimalManager
     /**
      * Make this predator more hungry. This could result in the predator's death.
      */
-    public void incrementHunger()
+    protected void incrementHunger()
     {
         foodLevel--;
         if(foodLevel <= 0) {
@@ -75,7 +74,7 @@ public abstract class AbstractPredatorManager extends AbstractAnimalManager
      * Sets the predator food level to the given parameter.
      * @param newLevel The new food level.
      */
-    public void setFoodLevel(int newLevel)
+    protected void setFoodLevel(int newLevel)
     {
         foodLevel = newLevel;
     }
@@ -84,7 +83,7 @@ public abstract class AbstractPredatorManager extends AbstractAnimalManager
      * Gives the current food level of this predator.
      * @return The food level of this predator.
      */
-    public int getFoodLevel(){
+    protected int getFoodLevel(){
         return foodLevel;
     }
     
@@ -94,11 +93,11 @@ public abstract class AbstractPredatorManager extends AbstractAnimalManager
      * @param location Where in the field it is located.
      * @return Where food was found, or null if it wasn't.
      */
-    abstract public Location findFood(Location location);
+    abstract protected Location findFood(Location location);
       
     /**
      * Gives the food value of the main prey of this predator.
      * @return The food value of the predator's main prey.
      */
-    abstract public int getMainPreyFoodValue();   
+    abstract protected int getMainPreyFoodValue();   
 }

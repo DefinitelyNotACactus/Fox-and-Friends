@@ -12,7 +12,7 @@ import animal.Animal;
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
-public class Rabbit extends AbstractPreyManager
+public class Rabbit extends AbstractPrey
 {
     // Characteristics shared by all rabbits (static fields).
 
@@ -44,31 +44,31 @@ public class Rabbit extends AbstractPreyManager
     }
     
     @Override
-    public Animal createAnimal(boolean randomAge, Field field, Location location)
+    protected Animal createAnimal(boolean randomAge, Field field, Location location)
     {
         return new Rabbit(randomAge, field, location);
     }
     
     @Override
-    public int getBreedingAge()
+    protected int getBreedingAge()
     {
         return BREEDING_AGE;
     }
     
     @Override
-    public double getBreedingProbability()
+    protected double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
     
     @Override
-    public int getMaxLitterSize()
+    protected int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
     }
     
     @Override
-    public int getMaxAge()
+    protected int getMaxAge()
     {
         return MAX_AGE;
     }

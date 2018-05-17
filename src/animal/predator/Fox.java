@@ -2,7 +2,6 @@ package animal.predator;
 
 import field.Field;
 import field.Location;
-import field.Randomizer;
 import animal.Animal;
 import animal.prey.Rabbit;
 import java.util.Iterator;
@@ -15,7 +14,7 @@ import java.util.List;
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
-public class Fox extends AbstractPredatorManager
+public class Fox extends AbstractPredator
 {
     // Characteristics shared by all foxes (static fields).
     
@@ -46,7 +45,7 @@ public class Fox extends AbstractPredatorManager
     }
     
     @Override
-    public Animal createAnimal(boolean randomAge, Field field, Location location)
+    protected Animal createAnimal(boolean randomAge, Field field, Location location)
     {
         return new Fox(randomAge, field, location);
     }
@@ -58,7 +57,7 @@ public class Fox extends AbstractPredatorManager
      * @return Where food was found, or null if it wasn't.
      */
     @Override
-    public Location findFood(Location location)
+    protected Location findFood(Location location)
     {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
@@ -80,25 +79,25 @@ public class Fox extends AbstractPredatorManager
     }
 
     @Override
-    public int getBreedingAge()
+    protected int getBreedingAge()
     {
         return BREEDING_AGE;
     }
     
     @Override
-    public double getBreedingProbability()
+    protected double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
     
     @Override
-    public int getMaxLitterSize()
+    protected int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
     }
     
     @Override
-    public int getMaxAge()
+    protected int getMaxAge()
     {
         return MAX_AGE;
     }
@@ -110,7 +109,7 @@ public class Fox extends AbstractPredatorManager
     }
     
     @Override
-    public int getMainPreyFoodValue()
+    protected int getMainPreyFoodValue()
     {
         return RABBIT_FOOD_VALUE;
     }

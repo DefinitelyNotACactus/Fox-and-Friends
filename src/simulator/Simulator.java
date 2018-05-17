@@ -38,7 +38,6 @@ public class Simulator
     
     //Timer Fields
     private Timer time;
-    private boolean skip = false;
     
     // List of animals in the field.
     private List<Animal> animals;
@@ -110,15 +109,12 @@ public class Simulator
             int i = 0;
             @Override
             public void run(){
-              if(view.isViable(field) && !Launcher.getPressed() && !getSkip()){
+              if(view.isViable(field) && !Launcher.getPressed()){
                  simulateOneStep();
                  i++;
               } else {
                   cancel();
                   time.purge();
-                  if(getSkip()){
-                    simulateWithNoTimer(i);
-                  }
               }
             }
         }, 0, 200);
@@ -170,23 +166,8 @@ public class Simulator
         step = 0;
         animals.clear();
         populate();
-        setSkip(false);
         // Show the starting state in the view.
         view.showStatus(step, field);
-    }
-    
-    /**
-     * Gets the value of the skip field
-     * @return boolean if the simulation is to be skipped.
-     */
-    public boolean getSkip()
-    {
-        return skip;
-    }
-    
-    public void setSkip(boolean skip)
-    {
-        this.skip = skip;
     }
     
     /**
