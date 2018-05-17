@@ -5,6 +5,7 @@ import field.Location;
 import java.util.Iterator;
 import java.util.List;
 import animal.Animal;
+import animal.prey.Platypus;
 
 /** 
  * This class was based on the Fox and Rabbits v2 project from the Objects First with BlueJ book
@@ -62,6 +63,15 @@ public class KomodoDragon extends AbstractPredator
                     fox.setDead();
                     setFoodLevel(fox.getFoodValue());
                     // Remove the dead fox from the field.
+                    return where;
+                }
+            }
+             if(animal instanceof Platypus) {
+                Platypus platypus = (Platypus) animal;
+                if(platypus.isAlive()) { 
+                    platypus.setDead();
+                    setFoodLevel(platypus.getFoodValue());
+                    // Remove the dead platypus from the field.
                     return where;
                 }
             }

@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.util.Timer;
 import java.util.TimerTask;
 import animal.Animal;
+import animal.prey.Platypus;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -35,6 +36,8 @@ public class Simulator
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;   
+    // The probability that a platypus will be created in any given grid position.
+    private static final double PLATYPUS_CREATION_PROBABILITY = 0.04;   
     
     //Timer Fields
     private Timer time;
@@ -76,8 +79,9 @@ public class Simulator
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        view.setColor(Rabbit.class, Color.orange);
-        view.setColor(Fox.class, Color.blue);
+        view.setColor(Platypus.class, Color.CYAN);
+        view.setColor(Rabbit.class, Color.blue);
+        view.setColor(Fox.class, Color.orange);
         view.setColor(KomodoDragon.class, Color.red);
         
         // Setup a valid starting point.
@@ -117,7 +121,7 @@ public class Simulator
                   time.purge();
               }
             }
-        }, 0, 200);
+        }, 0, 5);
     }
     
     /**
@@ -194,6 +198,11 @@ public class Simulator
                     Rabbit rabbit = new Rabbit(true, field, location);
                     animals.add(rabbit);
                 }
+                 else if(rand.nextDouble() <= PLATYPUS_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Platypus platypus = new Platypus(true, field, location);
+                    animals.add(platypus);
+                 }
                 // else leave the location empty.
             }
         }
