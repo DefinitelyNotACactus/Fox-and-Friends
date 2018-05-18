@@ -8,10 +8,11 @@ import field.Location;
  * 
  * @author David Pereira
  * @author Gabriel Davi
+ * @author Gabriel Mendes
  */
 public class Platypus extends AbstractPrey
 {
-    // Characteristics shared by all platypus (static fields).
+    // Characteristics shared by all platypuses (static fields).
 
     // The age at which a platypus can start to breed.
     private static final int BREEDING_AGE = 10;

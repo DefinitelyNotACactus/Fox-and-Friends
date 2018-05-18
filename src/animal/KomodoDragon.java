@@ -11,6 +11,7 @@ import java.util.List;
  *
  * @author David Pereira
  * @author Gabriel Davi
+ * @author Gabriel Mendes
  */
 public class KomodoDragon extends AbstractPredator
 {
@@ -63,14 +64,15 @@ public class KomodoDragon extends AbstractPredator
                     // Remove the dead fox from the field.
                     return where;
                 }
-            }
-            if(animal instanceof Platypus) {
-                Platypus platypus = (Platypus) animal;
-                if(platypus.isAlive()) { 
-                    platypus.setDead();
-                    setFoodLevel(platypus.getFoodValue());
-                    // Remove the dead platypus from the field.
-                    return where;
+            } else {
+                if(animal instanceof Platypus) {
+                    Platypus platypus = (Platypus) animal;
+                    if(platypus.isAlive()) { 
+                        platypus.setDead();
+                        setFoodLevel(platypus.getFoodValue());
+                        // Remove the dead platypus from the field.
+                        return where;
+                    }
                 }
             }
         }
