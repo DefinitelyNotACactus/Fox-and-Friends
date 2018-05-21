@@ -46,3 +46,4 @@ protected void giveBirth(List<AbstractAnimal> newAnimals)
         return new Platypus(randomAge, field, location);
     }
     ```
+Exemplo do método implementado em Platypus.java
