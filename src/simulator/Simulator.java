@@ -60,6 +60,7 @@ public class Simulator
     public Simulator()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+        launcher = null;
         time = new Timer();
     }
     
@@ -122,11 +123,13 @@ public class Simulator
             int i = 0;
             @Override
             public void run(){
-              if(view.isViable(field) && !launcher.isPressed() && i < numSteps){
+              if(view.isViable(field) && !launcher.isPressed() && i < numSteps || launcher == null && view.isViable(field) && i < numSteps){
                  simulateOneStep();
                  i++;
               } else {
-                  launcher.enableSimulationButtons(true);
+                  if(launcher != null){
+                    launcher.enableSimulationButtons(true);
+                  }
                   cancel();
                   time.purge();
               }
