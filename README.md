@@ -5,12 +5,14 @@ Os números dos exercícios estão de acordo com a 5a Edição do Livro.
 
 # Exercício 10.50
 Na resolução desta questão, criamos uma nova presa (Ornitorrinco) com a cor ciano, e um novo predador (Dragão de Komodo) que possui como cor, o vermelho. 
-O Ornintorrinco em comparação com o Coelho, possui uma chance menor de procriação, menor número máximo de filhos, além de uma idade máxima menor e uma idade mínima para procriação maior e ele tem um valor de comida menor. Ornintorrinco (Platypus) é uma subclasse de AbstractPrey (que é uma subclasse de AbstractAnimal)
-Já o Dragão em comparação com a Raposa, tem chances menores de se procriar, porém, vive mais (e tem sua idade mínima para procriação maior) e pode ter mais filhos que uma raposa. Por ser um predador o dragão precisa caçar outros animais para sobreviver, assim foi editado o método findFood para fazê-lo caçar raposas e ornitorrincos. Dragão de Komodo (KomodoDragon) é uma subclasse de AbstractPredator (que é uma subclasse de AbstractAnimal)
+
+O Ornintorrinco em comparação com o Coelho, possui uma chance menor de procriação, menor número máximo de filhos, além de uma idade máxima menor e uma idade mínima para procriação maior e ele tem um valor de comida menor. Ornintorrinco (Platypus) é uma subclasse de AbstractPrey (que é uma subclasse de AbstractAnimal).
+
+Já o Dragão em comparação com a Raposa, tem chances menores de se procriar, porém, vive mais (e tem sua idade mínima para procriação maior) e pode ter mais filhos que uma raposa. Por ser um predador o dragão precisa caçar outros animais para sobreviver, assim foi editado o método findFood para fazê-lo caçar raposas e ornitorrincos. Dragão de Komodo (KomodoDragon) é uma subclasse de AbstractPredator (que é uma subclasse de AbstractAnimal).
 
 # Exercício 10.51 
 No código original, em Rabbit tinhamos o seguinte:
-
+```
 private void giveBirth(List<Animal> newRabbits)
     {
         Field field = getField();
@@ -22,9 +24,9 @@ private void giveBirth(List<Animal> newRabbits)
             newRabbits.add(young);
         }
     }
-
+```
 Ignorando o nome das variáveis/parâmetros/comentários a diferença para Fox seria no tipo da variável young, no caso, Fox. Assim na superclasse, o método ficou da seguinte maneira:
-
+```
 protected void giveBirth(List<AbstractAnimal> newAnimals)
     {
         Field field = getField();
@@ -36,5 +38,5 @@ protected void giveBirth(List<AbstractAnimal> newAnimals)
             newAnimals.add(young);
         }
     }
-  
+```  
   Onde a varíavel young virou do tipo AbstractAnimal. Como se trata de uma classe abstrata, foi necessário criar um novo método chamado createAnimal que retornará um novo AbstractAnimal. Como o método createAnimal é abstrato ele foi implementado em cada subclasse retornando o animal que deve ser criado (Exemplo: caso uma instância de coelho chame este método, ele gerará um novo coelho).
