@@ -39,7 +39,7 @@ protected void giveBirth(List<AbstractAnimal> newAnimals)
         }
     }
 ```  
-  Onde a varíavel young virou do tipo AbstractAnimal. Como se trata de uma classe abstrata, foi necessário criar um novo método abstrato: createAnimal que retornará um novo AbstractAnimal. Assim o método createAnimal foi implementado em cada subclasse retornando o animal que deve ser criado. 
+  Onde a varíavel young virou do tipo AbstractAnimal. Como se trata de uma classe abstrata (logo não pode ser instanciada), foi necessário criar um novo método abstrato: createAnimal que retornará um novo AbstractAnimal. Assim o método createAnimal foi implementado em suas subclasses retornando o animal que deve ser criado. (Exemplo em Platypus: )
   ```
   public AbstractAnimal createAnimal(boolean randomAge, Field field, Location location)
     {
