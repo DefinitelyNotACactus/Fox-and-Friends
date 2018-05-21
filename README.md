@@ -1,4 +1,4 @@
-# Fox-and-Friends
+ a# Fox-and-Friends
 Uma simulação de um campo qualquer com quatro animais. O projeto original de BlueJ foi modificado para NetBeans, criando assim três pacotes (animal, field, simulator), um launcher como executável principal, além disso, foi adicionado mais duas classes abstratas como subclasse de Animal (renomeado para AbstractAnimal): AbstractPredator, para predadores, e AbstractPrey, para presas.
 
 Os números dos exercícios estão de acordo com a 5a Edição do Livro.
@@ -39,4 +39,10 @@ protected void giveBirth(List<AbstractAnimal> newAnimals)
         }
     }
 ```  
-  Onde a varíavel young virou do tipo AbstractAnimal. Como se trata de uma classe abstrata, foi necessário criar um novo método chamado createAnimal que retornará um novo AbstractAnimal. Como o método createAnimal é abstrato ele foi implementado em cada subclasse retornando o animal que deve ser criado (Exemplo: caso uma instância de coelho chame este método, ele gerará um novo coelho).
+  Onde a varíavel young virou do tipo AbstractAnimal. Como se trata de uma classe abstrata, foi necessário criar um novo método abstrato: createAnimal que retornará um novo AbstractAnimal. Assim o método createAnimal foi implementado em cada subclasse retornando o animal que deve ser criado. 
+  ```
+  public AbstractAnimal createAnimal(boolean randomAge, Field field, Location location)
+    {
+        return new Platypus(randomAge, field, location);
+    }
+    ```
