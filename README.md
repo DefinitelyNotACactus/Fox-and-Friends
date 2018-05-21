@@ -1,8 +1,40 @@
 # Fox-and-Friends
-Uma simulação de um campo qualquer com quatro animais. O projeto original de BlueJ foi modificado para NetBeans, criando assim três pacotes (animal, field, simulator) além de um Launcher.
+Uma simulação de um campo qualquer com quatro animais. O projeto original de BlueJ foi modificado para NetBeans, criando assim três pacotes (animal, field, simulator), um launcher como executável principal, além disso, foi adicionado mais duas classes abstratas como subclasse de Animal (renomeado para AbstractAnimal): AbstractPredator, para predadores, e AbstractPrey, para presas.
+
+Os números dos exercícios estão de acordo com a 5a Edição do Livro.
 
 # Exercício 10.50
-Foi adicionado o Ornitorrinco (Platypus.java) como presa e o Dragão de Komodo (KomodoDragon.java) como predador das Raposas e dos Ornitorrincos. Além disso, a classe Animal foi renomeada para AbstractAnimal, e foram adicionadas mais duas subclasses AbstractPredator e AbstractPrey, com isso KomodoDragon e Fox viraram subclasses de AbstractPredator, Rabbit e Platypus subclasses de AbstractPrey. Assim movemos o maior número possível de métodos para as superclasses. No mais, em simulator, fizemos modificações para serem criados Dragões e Ornitorrincos e atribuímos cores para eles (Ciano para Ornitorrinco e Vermelho para o Dragão de Komodo), para facilitar a visualização da simulação longa foi simulate possui um timer, assim, esperando um pouco antes de dar o próximo passo. Porém, o método antigo foi mantido, só que sobre outro nome (simulateWithNoTimer).
+Na resolução desta questão, criamos uma nova presa (Ornitorrinco) com a cor ciano, e um novo predador (Dragão de Komodo) que possui como cor, o vermelho. 
+O Ornintorrinco em comparação com o Coelho, possui uma chance menor de procriação, menor número máximo de filhos, além de uma idade máxima menor e uma idade mínima para procriação maior e ele tem um valor de comida menor. Ornintorrinco (Platypus) é uma subclasse de AbstractPrey (que é uma subclasse de AbstractAnimal)
+Já o Dragão em comparação com a Raposa, tem chances menores de se procriar, porém, vive mais (e tem sua idade mínima para procriação maior) e pode ter mais filhos que uma raposa. Por ser um predador o dragão precisa caçar outros animais para sobreviver, assim foi editado o método findFood para fazê-lo caçar raposas e ornitorrincos. Dragão de Komodo (KomodoDragon) é uma subclasse de AbstractPredator (que é uma subclasse de AbstractAnimal)
 
-# Exercício 10.51
-Para resolver este exercício, o método giveBirth de cada animal foi movido para AbstractAnimal (antigo Animal) e foi criado nessa superclasse um método abstrato chamado createAnimal que deve retornar um novo animal. (Exemplo: Se um Coelho chamar este método ele retornará um novo Coelho). 
+# Exercício 10.51 
+No código original, em Rabbit tinhamos o seguinte:
+
+private void giveBirth(List<Animal> newRabbits)
+    {
+        Field field = getField();
+        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        int births = breed();
+        for(int b = 0; b < births && free.size() > 0; b++) {
+            Location loc = free.remove(0);
+            Rabbit young = new Rabbit(false, field, loc);
+            newRabbits.add(young);
+        }
+    }
+
+Ignorando o nome das variáveis/parâmetros/comentários a diferença para Fox seria no tipo da variável young, no caso, Fox. Assim na superclasse, o método ficou da seguinte maneira:
+
+protected void giveBirth(List<AbstractAnimal> newAnimals)
+    {
+        Field field = getField();
+        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        int births = breed();
+        for(int b = 0; b < births && free.size() > 0; b++) {
+            Location loc = free.remove(0);
+            AbstractAnimal young = createAnimal(false, field, loc);
+            newAnimals.add(young);
+        }
+    }
+  
+  Onde a varíavel young virou do tipo AbstractAnimal. Como se trata de uma classe abstrata, foi necessário criar um novo método chamado createAnimal que retornará um novo AbstractAnimal. Como o método createAnimal é abstrato ele foi implementado em cada subclasse retornando o animal que deve ser criado (Exemplo: caso uma instância de coelho chame este método, ele gerará um novo coelho).
