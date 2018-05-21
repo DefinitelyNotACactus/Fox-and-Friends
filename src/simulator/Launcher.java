@@ -1,20 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package simulator;
 
 import javax.swing.SwingConstants;
 
-/**
- *
- * @author David
- */
 public class Launcher extends javax.swing.JFrame {
 
     private Simulator simulator;
-    public static boolean isPressed = false;
+    private boolean pressed = false;
     
     /**
      * Creates new form Executable_GUI
@@ -171,7 +162,7 @@ public class Launcher extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStartActionPerformed
-        simulator = new Simulator();
+        simulator = new Simulator(this);
         enableSimulationButtons(true);
         btStart.setEnabled(false);
     }//GEN-LAST:event_btStartActionPerformed
@@ -180,12 +171,10 @@ public class Launcher extends javax.swing.JFrame {
         setPressed(false);
         simulator.runLongSimulation(true);
         enableSimulationButtons(false);
-        btOneStep.setEnabled(true);
     }//GEN-LAST:event_btLongActionPerformed
 
     private void btLongSkipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLongSkipActionPerformed
         simulator.runLongSimulation(false);
-        enableSimulationButtons(false);
         btOneStep.setEnabled(true);
     }//GEN-LAST:event_btLongSkipActionPerformed
 
@@ -250,7 +239,7 @@ public class Launcher extends javax.swing.JFrame {
      * Makes the simulation buttons enabled
      * @param enable 
      */
-    private void enableSimulationButtons(boolean enable){
+    public void enableSimulationButtons(boolean enable){
         btLong.setEnabled(enable);
         btLongSkip.setEnabled(enable);
         if(!btReset.isEnabled() && enable){
@@ -259,12 +248,12 @@ public class Launcher extends javax.swing.JFrame {
         btOneStep.setEnabled(enable);
     }
     
-    private static void setPressed(boolean pressed){
-        isPressed = pressed;
+    private void setPressed(boolean pressed){
+        this.pressed = pressed;
     }
     
-    public static boolean getPressed(){
-        return isPressed;
+    public boolean isPressed(){
+        return pressed;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

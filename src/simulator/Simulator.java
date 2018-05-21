@@ -42,6 +42,9 @@ public class Simulator
     //Timer Fields
     private Timer time;
     
+    //Launcher field
+    private Launcher launcher;
+    
     // List of animals in the field.
     private List<AbstractAnimal> animals;
     // The current state of the field.
@@ -60,6 +63,12 @@ public class Simulator
         time = new Timer();
     }
     
+    public Simulator(Launcher launcher)
+    {
+        this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+        this.launcher = launcher;
+        time = new Timer();
+    }
     /**
      * Create a simulation field with the given size.
      * @param depth Depth of the field. Must be greater than zero.
@@ -113,10 +122,11 @@ public class Simulator
             int i = 0;
             @Override
             public void run(){
-              if(view.isViable(field) && !Launcher.getPressed() && i < numSteps){
+              if(view.isViable(field) && !launcher.isPressed() && i < numSteps){
                  simulateOneStep();
                  i++;
               } else {
+                  launcher.enableSimulationButtons(true);
                   cancel();
                   time.purge();
               }
