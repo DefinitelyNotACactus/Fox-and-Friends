@@ -9,6 +9,7 @@ import java.util.List;
  * A class representing shared characteristics of predators.
  * @author David Pereira
  * @author Gabriel Davi
+ * @author Gabriel Mendes
  */
 public abstract class AbstractPredator extends AbstractAnimal
 {   
