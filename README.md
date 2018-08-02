@@ -1,4 +1,4 @@
- a# Fox-and-Friends
+ # Fox-and-Friends
 Uma simulação de um campo qualquer com quatro animais. O projeto original de BlueJ foi modificado para NetBeans, criando assim três pacotes (animal, field, simulator), um launcher como executável principal, além disso, foi adicionado mais duas classes abstratas como subclasse de Animal (renomeado para AbstractAnimal): AbstractPredator, para predadores, e AbstractPrey, para presas.
 
 Os números dos exercícios estão de acordo com a 5a Edição do Livro.
